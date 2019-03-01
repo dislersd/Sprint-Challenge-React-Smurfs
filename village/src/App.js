@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Route, NavLink } from "react-router-dom";
-import styled from 'styled-components'
+import styled from "styled-components";
 import "./App.css";
 import SmurfForm from "./components/SmurfForm";
 import Smurfs from "./components/Smurfs";
@@ -22,9 +22,9 @@ const NavBar = styled.nav`
     cursor: pointer;
 
     &:hover {
-        background-color:  rgb(109, 147, 250);
-        color: #fcfcfc;
-      }
+      background-color: rgb(109, 147, 250);
+      color: #fcfcfc;
+    }
   }
 `;
 
@@ -58,6 +58,18 @@ class App extends Component {
       });
   };
 
+  deleteSmurf = (e, id) => {
+    e.preventDefault();
+    axios
+      .delete(`http://localhost:3333/smurfs/${id}`)
+      .then(res =>
+        this.setState({
+          smurfs: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
       <div className="App">
@@ -73,8 +85,9 @@ class App extends Component {
         <Route
           exact
           path="/"
-          render={props => <Smurfs {...props} smurfs={this.state.smurfs} />}
+          render={ props=>(<Smurfs {...props} smurfs={this.state.smurfs} delete={this.deleteSmurf}/>) }
         />
+
         <Route
           path="/smurf-form"
           render={props => <SmurfForm {...props} addSmurf={this.addSmurf} />}

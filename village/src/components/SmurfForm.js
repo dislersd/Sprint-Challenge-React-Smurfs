@@ -54,15 +54,6 @@ class SmurfForm extends Component {
     };
   }
 
-  // addSmurf = event => {
-  //   event.preventDefault();
-  //   this.setState({
-  //     name: '',
-  //     age: '',
-  //     height: ''
-  //   });
-  // }
-
   handleSubmit = e => {
     e.preventDefault();
     const newSmurf = {

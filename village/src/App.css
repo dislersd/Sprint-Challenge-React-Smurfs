@@ -17,10 +17,6 @@ ul {
   flex-wrap: wrap;
 }
 
-li {
-  background-color: #fae;
-}
-
 .Smurfs {
   width: 100%;
 }
@@ -29,8 +25,6 @@ li {
   border-bottom: 2px solid #000;
   border-top: 2px solid #000;
   margin: 20px;
-}
-
-button:hover {
-  background-color: rgb(109, 147, 250);
+  background-color: #fff;
+  padding-bottom: 10px;
 }
