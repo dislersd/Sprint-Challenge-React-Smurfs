@@ -16,7 +16,7 @@ const FormWrapper = styled.div`
     margin: 10px auto;
 
     input {
-      border:none;
+      border: none;
       height: 30px;
       width: 200px;
       font-size: 18px;
@@ -29,17 +29,16 @@ const FormWrapper = styled.div`
     }
 
     button {
-    width: 100px;
-    margin-bottom: 10px;
-    border: none;
-    background-color: #fff;
-    font-size: 12px;
-    cursor: pointer;
+      width: 100px;
+      margin-bottom: 10px;
+      border: none;
+      background-color: #fff;
+      font-size: 12px;
+      cursor: pointer;
 
       &:hover {
-        background-color:  rgb(109, 147, 250);
+        background-color: rgb(109, 147, 250);
       }
-
     }
   }
 `;
@@ -48,29 +47,52 @@ class SmurfForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      age: "",
-      height: ""
+      smurf: this.props.activeSmurf || {
+        name: "",
+        age: "",
+        height: ""
+      }
     };
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    const newSmurf = {
-      name: this.state.name,
-      age: this.state.age,
-      height: this.state.height
-    };
-    this.props.addSmurf(e, newSmurf);
-    this.setState({
-      name: "",
-      age: "",
-      height: ""
-    });
+    if (this.props.activeSmurf) {
+      this.props.update(e, this.state.smurf);
+    } else {
+      this.props.addSmurf(e, this.state.smurf);
+      this.setState({
+        smurf: {
+          name: "",
+          age: "",
+          height: ""
+        }
+      });
+    }
   };
 
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  // handleInputChange = e => {
+  //   this.setState({
+  //     smurf: {
+  //       name: e.target.value,
+  //       age: e.target.value,
+  //       height: e.target.value
+  //     }
+  //   });
+  // };
+
+  changeHandler = ev => {
+    ev.persist();
+    let value = ev.target.value;
+    if (ev.target.name === "age") {
+      value = parseInt(value, 10);
+    }
+    this.setState(prevState => ({
+      smurf: {
+        ...prevState.smurf,
+        [ev.target.name]: value
+      }
+    }));
   };
 
   render() {
@@ -78,21 +100,22 @@ class SmurfForm extends Component {
       <FormWrapper>
         <form onSubmit={this.handleSubmit}>
           <input
-            onChange={this.handleInputChange}
+            onChange={this.changeHandler}
             placeholder="name"
-            value={this.state.name}
+            value={this.state.smurf.name}
             name="name"
           />
           <input
-            onChange={this.handleInputChange}
+            onChange={this.changeHandler}
+            type='number'
             placeholder="age"
-            value={this.state.age}
+            value={this.state.smurf.age}
             name="age"
           />
           <input
-            onChange={this.handleInputChange}
+            onChange={this.changeHandler}
             placeholder="height"
-            value={this.state.height}
+            value={this.state.smurf.height}
             name="height"
           />
           <button type="submit">Add to the village</button>

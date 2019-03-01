@@ -22,7 +22,7 @@ const NavBar = styled.nav`
     cursor: pointer;
 
     &:hover {
-      background-color: rgb(109, 147, 250);
+      background-color: #485b5e;
       color: #fcfcfc;
     }
   }
@@ -32,7 +32,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      smurfs: []
+      smurfs: [],
+      activeSmurf: null
     };
   }
 
@@ -70,6 +71,30 @@ class App extends Component {
       .catch(err => console.log(err));
   };
 
+  setUpdateForm = (e, smurf) => {
+    e.preventDefault();
+    this.setState({
+      activeSmurf: smurf
+    });
+    this.props.history.push("/smurf-form");
+  };
+
+  updateSmurf = (e, smurf) => {
+    e.preventDefault();
+    axios
+      .put(`http://localhost:3333/smurfs/${smurf.id}`, smurf)
+      .then(res => {
+        this.setState({
+          activeSmurf: null,
+          smurfs: res.data
+        });
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <div className="App">
@@ -85,12 +110,26 @@ class App extends Component {
         <Route
           exact
           path="/"
-          render={ props=>(<Smurfs {...props} smurfs={this.state.smurfs} delete={this.deleteSmurf}/>) }
+          render={props => (
+            <Smurfs
+              {...props}
+              smurfs={this.state.smurfs}
+              delete={this.deleteSmurf}
+              update={this.setUpdateForm}
+            />
+          )}
         />
 
         <Route
           path="/smurf-form"
-          render={props => <SmurfForm {...props} addSmurf={this.addSmurf} />}
+          render={props => (
+            <SmurfForm
+              {...props}
+              addSmurf={this.addSmurf}
+              activeSmurf={this.state.activeSmurf}
+              update={this.updateSmurf}
+            />
+          )}
         />
       </div>
     );

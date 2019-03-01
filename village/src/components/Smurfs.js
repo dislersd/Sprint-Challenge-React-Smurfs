@@ -2,24 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Smurf from "./Smurf";
 
-const DeleteButton = styled.button`
-  border: 1px solid black;
-  border-radius: 50%
-  height:30px;
-  width: 30px;
-  cursor: pointer;
-  font-size: 16px;
-  background-color: #ff6c5b;
-  padding: 2px;
-  position: relative;
-  top: 140px;
-  right: 102px;
-
-  &:hover {
-    background-color: red;
-  }
-`;
-
 const SmurfsContainer = styled.div`
   border: 10px solid #4286f4;
   width: 100%;
@@ -43,11 +25,9 @@ const Smurfs = props => {
                   id={smurf.id}
                   age={smurf.age}
                   height={smurf.height}
-                  
+                  delete={props.delete}
+                  update={props.update}
                 />
-                <DeleteButton onClick={e => props.delete(e, smurf.id)}>
-                  X
-                </DeleteButton>
               </React.Fragment>
             );
           })}
