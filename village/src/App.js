@@ -23,7 +23,7 @@ class App extends Component {
   addSmurf = (e, smurf) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/friends", smurf)
+      .post("http://localhost:3333/smurfs", smurf)
       .then(res => {
         this.setState({
           smurfs: res.data
