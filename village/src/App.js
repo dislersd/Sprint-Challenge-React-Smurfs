@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Route } from "react-router-dom";
+import { Route, NavLink } from "react-router-dom";
 
 import "./App.css";
 import SmurfForm from "./components/SmurfForm";
@@ -29,8 +29,7 @@ class App extends Component {
         this.setState({
           smurfs: res.data
         });
-        // // HTTP STEP V - Clear data form in ItemForm and route to /item-list
-        // this.props.history.push("/");
+        this.props.history.push("/");
       })
       .catch(err => {
         console.log(err);
@@ -40,8 +39,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        
-        
+        <NavLink to="/">
+          <button>Home</button>
+        </NavLink>
+        <NavLink to="/smurf-form">
+          <button>Add Smurf</button>
+        </NavLink>
 
         <Route
           exact
