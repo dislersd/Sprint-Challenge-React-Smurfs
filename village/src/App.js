@@ -1,10 +1,32 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Route, NavLink } from "react-router-dom";
-
+import styled from 'styled-components'
 import "./App.css";
 import SmurfForm from "./components/SmurfForm";
 import Smurfs from "./components/Smurfs";
+
+const NavBar = styled.nav`
+  max-width: 100%;
+  background-color: #4286f4;
+  padding: 30px;
+
+  button {
+    width: 100px;
+    height: 50px;
+    margin: 10px 10px;
+    border: none;
+    background-color: #fcfcfc;
+    font-size: 16px;
+    border-radius: 100px;
+    cursor: pointer;
+
+    &:hover {
+        background-color:  rgb(109, 147, 250);
+        color: #fcfcfc;
+      }
+  }
+`;
 
 class App extends Component {
   constructor(props) {
@@ -39,12 +61,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavLink to="/">
-          <button>Home</button>
-        </NavLink>
-        <NavLink to="/smurf-form">
-          <button>Add Smurf</button>
-        </NavLink>
+        <NavBar>
+          <NavLink to="/">
+            <button>Home</button>
+          </NavLink>
+          <NavLink to="/smurf-form">
+            <button>Add Smurf</button>
+          </NavLink>
+        </NavBar>
 
         <Route
           exact

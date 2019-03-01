@@ -1,3 +1,36 @@
 .App {
   text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+h1 {
+  width: 100%;
+  font-size: 50px;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+li {
+  background-color: #fae;
+}
+
+.Smurfs {
+  width: 100%;
+}
+
+.Smurf {
+  border-bottom: 2px solid #000;
+  border-top: 2px solid #000;
+  margin: 20px;
+}
+
+button:hover {
+  background-color: rgb(109, 147, 250);
 }
