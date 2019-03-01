@@ -1,32 +1,44 @@
-import React, { Component } from 'react';
+import React from "react";
+import styled from "styled-components";
+import Smurf from "./Smurf";
 
-import Smurf from './Smurf';
+const SmurfsContainer = styled.div`
+  border: 10px solid #4286f4;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+`;
 
-class Smurfs extends Component {
-  render() {
-    return (
+const Smurfs = props => {
+  return (
+    <SmurfsContainer>
       <div className="Smurfs">
         <h1>Smurf Village</h1>
         <ul>
-          {this.props.smurfs.map(smurf => {
+          {props.smurfs.map(smurf => {
             return (
-              <Smurf
-                name={smurf.name}
-                id={smurf.id}
-                age={smurf.age}
-                height={smurf.height}
-                key={smurf.id}
-              />
+              <React.Fragment key={smurf.id}>
+                <Smurf
+                  name={smurf.name}
+                  id={smurf.id}
+                  age={smurf.age}
+                  height={smurf.height}
+                  delete={props.delete}
+                  update={props.update}
+                />
+              </React.Fragment>
             );
           })}
         </ul>
       </div>
-    );
-  }
-}
+    </SmurfsContainer>
+  );
+};
 
 Smurf.defaultProps = {
- smurfs: [],
+  smurfs: []
 };
 
 export default Smurfs;
